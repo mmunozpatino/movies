@@ -58,7 +58,7 @@ class Movie {
     title = json['title'];
     voteAverage = json['vote_average'] / 1;
     overview = json['overview'];
-    releaseDate = json['releaseDate'];
+    releaseDate = json['release_date'];
   }
 
 }
