@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: false,
         title: Text('Películas en Cines'),
-        backgroundColor: Colors.indigoAccent,
+        // backgroundColor: Colors.indigoAccent,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
