@@ -1,12 +1,12 @@
 class Movies {
-  List<Movie> movieList = List();
+  List<Movie> items = List();
 
   Movies();
 
-  Movies.fromJsonList(List<dynamic> jsonList){
-    if( jsonList == null) return;
-    for(var item in jsonList){
-      movieList.add(Movie.fromJsonMap(item));
+  Movies.fromJsonList(List<dynamic> jsonList) {
+    if (jsonList == null) return;
+    for (var item in jsonList) {
+      items.add(Movie.fromJsonMap(item));
     }
   }
 }
@@ -44,7 +44,7 @@ class Movie {
     this.releaseDate,
   });
 
-  Movie.fromJsonMap(Map<String, dynamic> json){
+  Movie.fromJsonMap(Map<String, dynamic> json) {
     popularity = json['popularity'] / 1;
     voteCount = json['vote_count'];
     video = json['video'];
@@ -61,4 +61,11 @@ class Movie {
     releaseDate = json['release_date'];
   }
 
+  String getPosterImg() {
+    if (posterPath == null) {
+      return 'https://www.vermeer.com.au/wp-content/uploads/2016/12/attachment-no-image-available.png';
+    } else {
+      return 'https://image.tmdb.org/t/p/w500/$posterPath';
+    }
+  }
 }
