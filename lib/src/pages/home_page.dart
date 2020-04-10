@@ -52,6 +52,7 @@ class HomePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(height: 1.0),
           Container(
             padding: EdgeInsets.only(left: 15.0),
             child: Text('Populares', style: Theme.of(context).textTheme.subhead,)),
@@ -67,6 +68,7 @@ class HomePage extends StatelessWidget {
               }
             },
           ),
+
         ],
       ),
     );

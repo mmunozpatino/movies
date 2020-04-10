@@ -13,7 +13,7 @@ class CardSwiper extends StatelessWidget {
     final _screenSize = MediaQuery.of(context).size;
 
     return Container(
-      padding: EdgeInsets.only(top: 10.0),
+      padding: EdgeInsets.symmetric(vertical: 20.0),
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
           return ClipRRect(
