@@ -19,7 +19,7 @@ class MoviesProvider {
   final _popularsStreamController =  StreamController<List<Movie>>.broadcast();
 
   //REMINDER el fuction es opcional, el editor te ayuda más
-  get popularSink => _popularsStreamController.sink.add;
+  Function(List<Movie>) get popularSink => _popularsStreamController.sink.add;
 
   Stream<List<Movie>> get popularsStream => _popularsStreamController.stream;
 
