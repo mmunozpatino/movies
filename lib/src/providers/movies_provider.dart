@@ -16,16 +16,16 @@ class MoviesProvider {
   List<Movie> _populars = new List(); 
 
   //REMINDER: permite que muchos escuchen este stream
-  final _popularsStream =  StreamController<List<Movie>>.broadcast();
+  final _popularsStreamController =  StreamController<List<Movie>>.broadcast();
 
   //REMINDER el fuction es opcional, el editor te ayuda más
-  Fuction(List<Movie>) get popularsSick => _popularsStream.sink.add;
+  get popularSink => _popularsStreamController.sink.add;
 
-  Stream<List<Movie>> get popularsStream => _popularsStream.stream;
+  Stream<List<Movie>> get popularsStream => _popularsStreamController.stream;
 
   void disposeStreams(){
     //REMINDER: se ejecuta si el stream tiene algún dato
-    _popularsStream?.close();
+    _popularsStreamController?.close();
   }
 
   Future<List<Movie>> _processAnswer(Uri url) async {
@@ -58,7 +58,13 @@ class MoviesProvider {
           'page': _popularesPage.toString(),
         }
     );
+     
+    final res = await _processAnswer(url);
 
-    return await _processAnswer(url);
+    _populars.addAll(res);
+
+    popularSink(_populars);
+
+    return res;
   }
 }
