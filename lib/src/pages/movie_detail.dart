@@ -12,7 +12,16 @@ class MovieDetail extends StatelessWidget {
       body: CustomScrollView(
         // slivers es análogo al children de otros widgets!
         slivers: <Widget>[
-          _createAppBar(context, movie)
+          _createAppBar(context, movie),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              <Widget> [
+                SizedBox( height: 10.0),
+                _titlePoster(context, movie),
+                _description(context, movie),
+              ]
+            )
+          )
         ]
       )
     );
@@ -44,4 +53,64 @@ class MovieDetail extends StatelessWidget {
       ),
     );
   }
+
+  Widget _titlePoster(BuildContext context, Movie movie) {
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      child: Row(
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20.0),
+            //No usamos fadeInImage porque ya tenemos la foto cargada de la pantalla anterior
+            child: Image(
+              image: NetworkImage(movie.getPosterImg()),
+              height: 150.0,
+            ),
+          ),
+          SizedBox(width: 20.0),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget> [
+                Text(
+                  movie.title,
+                  style: Theme.of(context).textTheme.title,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  movie.originalTitle,
+                  style: Theme.of(context).textTheme.subhead,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.star_border),
+                    Text(
+                      movie.voteAverage.toString(),
+                      style: Theme.of(context).textTheme.subhead
+                    )
+                  ],
+                ),
+              ]
+            )
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _description(BuildContext context, Movie movie) {
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+      child: Text(
+        movie.overview,
+        textAlign: TextAlign.justify,
+      )
+    );
+  }
+
+
+
 }
