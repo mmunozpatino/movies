@@ -1,3 +1,16 @@
+class Cast {
+  List<Actor> actorList = new List();
+
+  Cast.fromJsonListMap( List<dynamic> jsonList) {
+    if( jsonList == null ) return;
+
+    jsonList.forEach((json) {
+      final actor = Actor.fromJsonMap(json);
+      actorList.add(actor);
+    });
+  }
+}
+
 class Actor {
   int castId;
   String character;
@@ -9,6 +22,7 @@ class Actor {
   String profilePath;
 
   Actor({
+    this.castId,
     this.character,
     this.creditId,
     this.gender,
@@ -17,4 +31,23 @@ class Actor {
     this.order,
     this.profilePath,
   });
+
+  Actor.fromJsonMap( Map<String, dynamic> json) {
+    castId = json['cast_id'];
+    character = json['character'];
+    creditId = json['credit_id'];
+    gender = json['gender'];
+    id = json['id'];
+    name = json['name'];
+    order = json['order'];
+    profilePath = json['profile_path'];
+  }
+
+  String getPhoto() {
+    if (profilePath == null) {
+      return 'https://2img.net/r/topicit/images/no-avatar-7.png';
+    } else {
+      return 'https://image.tmdb.org/t/p/w500/$profilePath';
+    }
+  }
 }
