@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:movies/src/models/actor_model.dart';
 import 'package:movies/src/models/movie_model.dart';
@@ -46,12 +48,13 @@ class MovieDetail extends StatelessWidget {
   }
 
   Widget _titlePoster(BuildContext context, Movie movie) {
+    log("en detalle "+ movie.uid);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         children: <Widget>[
           Hero(
-            tag: movie.id, // debe ser el mismo en los dos lados
+            tag: movie.uid, // debe ser el mismo en los dos lados
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
               //No usamos fadeInImage porque ya tenemos la foto cargada de la pantalla anterior

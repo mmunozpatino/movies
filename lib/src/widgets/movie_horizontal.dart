@@ -34,12 +34,13 @@ class MovieHorizontal extends StatelessWidget {
   }
 
   Widget _card(BuildContext context, Movie movie) {
+    movie.uid = "${movie.id}-card";
     final Container movieCard = Container(
         margin: EdgeInsets.only(right: 15.0),
         child: Column(
           children: <Widget>[
             Hero(
-              tag: movie.id, //debe ser el mismo en los dos lugares de la animación
+              tag: movie.uid, //debe ser el mismo en los dos lugares de la animación
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: FadeInImage(

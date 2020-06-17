@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:movies/src/providers/movies_provider.dart';
 
@@ -9,8 +11,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    moviesProvider.getPopulars();
 
     return Scaffold(
         appBar: AppBar(
@@ -35,7 +35,8 @@ class HomePage extends StatelessWidget {
 
 
   Widget _swiperCards() {
-    // moviesProvider.getNowPlaying();
+
+    moviesProvider.getNowPlaying();
 
     return StreamBuilder(
       stream: moviesProvider.popularsStream,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -16,16 +18,21 @@ class CardSwiper extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 20.0),
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, "detail", arguments: movies[index]);
-            },
+          movies[index].uid = '${movies[index].id}-poster';
+          return Hero(
+            tag: movies[index].uid,
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
-                child: FadeInImage(
-                  image: NetworkImage(movies[index].getPosterImg()),
-                  placeholder: AssetImage('assets/img/no-image.jpg'),
-                  fit: BoxFit.cover,
+                child: GestureDetector(
+                  onTap: () {
+                    log("hola");
+                    Navigator.pushNamed(context, "detail", arguments: movies[index]);
+                  },
+                  child: FadeInImage(
+                    image: NetworkImage(movies[index].getPosterImg()),
+                    placeholder: AssetImage('assets/img/no-image.jpg'),
+                    fit: BoxFit.cover,
+                  ),
                 )),
           );
         },

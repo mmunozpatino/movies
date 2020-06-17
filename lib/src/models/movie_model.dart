@@ -12,6 +12,7 @@ class Movies {
 }
 
 class Movie {
+  String uid;
   double popularity;
   int voteCount;
   bool video;

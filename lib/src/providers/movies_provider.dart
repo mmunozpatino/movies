@@ -37,7 +37,6 @@ class MoviesProvider {
     final data = json.decode(res.body);
 
     final movies = Movies.fromJsonList(data['results']);
-    // print(movies[0]['title']);
 
     return movies.items;
   }
@@ -84,7 +83,7 @@ class MoviesProvider {
 
     final resp = await http.get(url);
 
-    log(url.toString());
+    // log(url.toString());
 
     final decodedData = json.decode(resp.body);
     final cast = new Cast.fromJsonListMap(decodedData['cast']);
