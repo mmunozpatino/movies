@@ -38,14 +38,21 @@ class HomePage extends StatelessWidget {
 
   Widget _swiperCards() {
 
-    return StreamBuilder(
-      stream: moviesProvider.popularsStream,
-      builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
-        if (snapshot.hasData) {
-          return CardSwiper(movies: snapshot.data);
+    return FutureBuilder(
+      future: moviesProvider.getNowPlaying(),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        
+        if ( snapshot.hasData ) {
+          return CardSwiper( movies: snapshot.data );
         } else {
-          return Container( child: Center(child: CircularProgressIndicator()));
+          return Container(
+            height: 400.0,
+            child: Center(
+              child: CircularProgressIndicator()
+            )
+          );
         }
+        
       },
     );
   }
