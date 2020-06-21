@@ -12,6 +12,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    moviesProvider.getPopulars();
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -35,8 +37,6 @@ class HomePage extends StatelessWidget {
 
 
   Widget _swiperCards() {
-
-    moviesProvider.getNowPlaying();
 
     return StreamBuilder(
       stream: moviesProvider.popularsStream,
