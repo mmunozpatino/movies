@@ -16,17 +16,17 @@ class MoviesProvider {
   int _popularesPage = 0;
   bool _isLoading = false;
 
-  List<Movie> _populars = new List(); 
+  List<Movie> _populars = new List();
 
   //REMINDER: permite que muchos escuchen este stream
-  final _popularsStreamController =  StreamController<List<Movie>>.broadcast();
+  final _popularsStreamController = StreamController<List<Movie>>.broadcast();
 
   //REMINDER el fuction es opcional, el editor te ayuda más
   Function(List<Movie>) get popularSink => _popularsStreamController.sink.add;
 
   Stream<List<Movie>> get popularsStream => _popularsStreamController.stream;
 
-  void disposeStreams(){
+  void disposeStreams() {
     //REMINDER: se ejecuta si el stream tiene algún dato
     _popularsStreamController?.close();
   }
@@ -49,8 +49,7 @@ class MoviesProvider {
   }
 
   Future<List<Movie>> getPopulars() async {
-
-    if(_isLoading) {
+    if (_isLoading) {
       return [];
     }
 
@@ -58,15 +57,12 @@ class MoviesProvider {
 
     _popularesPage++;
 
-    final url = Uri.https(
-        _url, '3/movie/popular', 
-        {
-          'api_key': _apiKey, 
-          'language': _language,
-          'page': _popularesPage.toString(),
-        }
-    );
-     
+    final url = Uri.https(_url, '3/movie/popular', {
+      'api_key': _apiKey,
+      'language': _language,
+      'page': _popularesPage.toString(),
+    });
+
     final res = await _processAnswer(url);
 
     _populars.addAll(res);
@@ -78,8 +74,9 @@ class MoviesProvider {
     return res;
   }
 
-  Future<List<Actor>> getCast( String movieId) async {
-    final url = Uri.https(_url, '3/movie/$movieId/credits', {'api_key': _apiKey, 'language': _language});
+  Future<List<Actor>> getCast(String movieId) async {
+    final url = Uri.https(_url, '3/movie/$movieId/credits',
+        {'api_key': _apiKey, 'language': _language});
 
     final resp = await http.get(url);
 
@@ -89,5 +86,12 @@ class MoviesProvider {
     final cast = new Cast.fromJsonListMap(decodedData['cast']);
 
     return cast.actorList;
+  }
+
+  Future<List<Movie>> searchMovie(String query) async {
+    final url = Uri.https(_url, '3/search/movie',
+        {'api_key': _apiKey, 'language': _language, 'query': query});
+
+    return await _processAnswer(url);
   }
 }
